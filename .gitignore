@@ -1,0 +1,33 @@
+.idea
+*/target/
+
+### Angular ###
+## Angular ##
+# compiled output
+angular-frontend/dist
+angular-frontend/tmp
+angular-frontend/app/**/*.js
+angular-frontend/app/**/*.js.map
+
+# dependencies
+angular-frontend/node_modules
+angular-frontend/bower_components
+
+# IDEs and editors
+angular-frontend/.idea
+
+# misc
+angular-frontend/.sass-cache
+angular-frontend/connect.lock
+angular-frontend/coverage/*
+angular-frontend/libpeerconnection.log
+angular-frontendnpm-debug.log
+angular-frontend/testem.log
+angular-frontend/typings
+angular-frontend/node
+
+# e2e
+angular-frontend/e2e/*.js
+angular-frontend/e2e/*.map
+
+
