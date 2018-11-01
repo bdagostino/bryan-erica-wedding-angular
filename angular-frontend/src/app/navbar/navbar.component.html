@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-md navbar-light">
+  <a class="navbar-brand" href="/">DAgostino Wedding</a>
+  <button class="navbar-toggler" type="button" (click)="navbarCollapsed = !navbarCollapsed" data-toggle="collapse" [attr.aria-expanded]="!navbarCollapsed" data-target="#mainNavBar"
+          aria-controls="mainNavBar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="mainNavBar" [ngbCollapse]="navbarCollapsed">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      
+      <li class="nav-item dropdown" ngbDropdown>
+        <a class="nav-link dropdown-toggle" style="cursor: pointer" id="storiesDropdown" role="button" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>Stories</a>
+        <div class="dropdown-menu" aria-labelledby="storiesDropdown" ngbDropdownMenu>
+          <a class="dropdown-item" href="stories/our-story">Our Story</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/stories/bridesmaids">Bridesmaids</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/stories/groomsmen">Groomsmen</a>
+        </div>
+      </li>
+      
+      <li class="nav-item"><a class="nav-link" href="/rsvp/search">RSVP</a></li>
+      
+      <li class="nav-item dropdown" ngbDropdown>
+        <a class="nav-link dropdown-toggle" style="cursor: pointer" id="detailsDropdown" role="button" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>Details</a>
+        <div class="dropdown-menu" aria-labelledby="detailsDropdown" ngbDropdownMenu>
+          <a class="dropdown-item" href="/details/accommodations">Accommodations</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/details/location">Location</a>
+        </div>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="#">Registry</a></li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" style="cursor: pointer" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+        <div class="dropdown-menu" aria-labelledby="adminDropdown">
+          <a class="dropdown-item" href="/admin/food">Food</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/admin/guest">Guest</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/admin/invitation">Invitation</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

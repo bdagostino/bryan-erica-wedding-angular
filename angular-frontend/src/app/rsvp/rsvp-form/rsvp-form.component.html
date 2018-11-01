@@ -1,0 +1,141 @@
+<form [formGroup]="rsvpModifyForm" (ngSubmit)="onSubmit()" class="container-fluid">
+ 
+  <h2>Guest List</h2>
+  <div class="row">
+    <ng-container formArrayName="invitedGuestList" *ngFor="let guestControl of invitedGuestListForms.controls; let i = index">
+      <div *ngIf="i>0 && (i%2)==0" class="w-100"></div>
+      <div *ngIf="(i%2)==0" class="col-lg-1"></div>
+      <div class="col-lg">
+        <div class="card" [formGroupName]=i>
+          <h3 class="card-header">
+            {{invitation.invitedGuestList[i].firstName + ' ' + invitation.invitedGuestList[i].lastName}}
+          </h3>
+          <div class="card-body">
+            <div><b>Will you be able to attend our ceremony?</b></div>
+            <div class="form-group">
+              <div class="btn-group btn-group-toggle" formControlName="ceremonyAttendance" ngbRadioGroup>
+                <label class="btn btn-outline-dark" ngbButtonLabel>
+                  <input type="radio" [value]="true" required ngbButton/>Accept
+                </label>
+                <label class="btn btn-outline-dark" ngbButtonLabel>
+                  <input type="radio" [value]="false" required ngbButton/>Regret
+                </label>
+              </div>
+            </div>
+            <div><b>Will you be able to attend our reception?</b></div>
+            <div class="form-group">
+              <div class="btn-group btn-group-toggle" formControlName="receptionAttendance" ngbRadioGroup>
+                <label class="btn btn-outline-dark" ngbButtonLabel>
+                  <input type="radio" [value]="true" required ngbButton/>Accept
+                </label>
+                <label class="btn btn-outline-dark" ngbButtonLabel>
+                  <input type="radio" [value]="false" required ngbButton/>Regret
+                </label>
+              </div>
+            </div>
+            <div><b>Meal Options</b></div>
+            <div class="form-group">
+              <select class="custom-select" formControlName="food">
+                <option [value]="null">Please Select A Meal</option>
+                <option *ngFor="let food of foodList" [value]="food.id">{{food.type}}</option>
+              </select>
+            </div>
+            <div><b>Do you have any dietary restrictions?</b></div>
+            <div class="form-group">
+              <div class="btn-group btn-group-toggle" formControlName="dietaryConcerns" ngbRadioGroup>
+                <label class="btn btn-outline-dark" ngbButtonLabel>
+                  <input type="radio" [value]="true" required ngbButton/>Yes
+                </label>
+                <label class="btn btn-outline-dark" ngbButtonLabel>
+                  <input type="radio" [value]="false" required ngbButton/>No
+                </label>
+              </div>
+            </div>
+            <div><b>Dietary Comments</b></div>
+            <div class="form-group">
+              <input type="text" formControlName="dietaryComments"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-1"></div>
+    </ng-container>
+  </div>
+  
+  
+  <h2>Additional Guests</h2>
+  <button *ngIf="additionalGuestListForms.controls.length < invitation.maxAdditionalGuests" class="btn btn-info"(click)="addGuest()">Add Additional Guest</button>
+  <div class="row">
+    <ng-container formArrayName="additionalGuestList" *ngFor="let additionalGuestControl of additionalGuestListForms.controls; let i = index">
+      <div *ngIf="i>0 && (i%2)==0" class="w-100"></div>
+      <div *ngIf="(i%2)==0" class="col-lg-1"></div>
+      <div class="col-lg">
+        <div class="card" [formGroupName]=i>
+          <h3 class="card-header">
+            <button class="btn btn-light btn-md" (click)="removeGuest(i)"><fa-icon [icon]="faWindowClose"></fa-icon></button>Guest {{i +1}}
+          </h3>
+          <div class="card-body">
+            <div><b>First Name</b></div>
+            <input type="text" formControlName="firstName">
+            <div><b>Last Name</b></div>
+            <input type="text" formControlName="lastName">
+            <div><b>Will you be able to attend our ceremony?</b></div>
+            <div class="form-group">
+              <div class="btn-group btn-group-toggle" formControlName="ceremonyAttendance" ngbRadioGroup>
+                <label class="btn btn-outline-dark" ngbButtonLabel>
+                  <input type="radio" [value]="true" required ngbButton/>Accept
+                </label>
+                <label class="btn btn-outline-dark" ngbButtonLabel>
+                  <input type="radio" [value]="false" required ngbButton/>Regret
+                </label>
+              </div>
+            </div>
+            <div><b>Will you be able to attend our reception?</b></div>
+            <div class="form-group">
+              <div class="btn-group btn-group-toggle" formControlName="receptionAttendance" ngbRadioGroup>
+                <label class="btn btn-outline-dark" ngbButtonLabel>
+                  <input type="radio" [value]="true" required ngbButton/>Accept
+                </label>
+                <label class="btn btn-outline-dark" ngbButtonLabel>
+                  <input type="radio" [value]="false" required ngbButton/>Regret
+                </label>
+              </div>
+            </div>
+            <div><b>Meal Options</b></div>
+            <div class="form-group">
+              <select class="custom-select" formControlName="food">
+                <option [value]="null">Please Select A Meal</option>
+                <option *ngFor="let food of foodList" [value]="food.id">{{food.type}}</option>
+              </select>
+            </div>
+            <div><b>Do you have any dietary restrictions?</b></div>
+            <div class="form-group">
+              <div class="btn-group btn-group-toggle" formControlName="dietaryConcerns" ngbRadioGroup>
+                <label class="btn btn-outline-dark" ngbButtonLabel>
+                  <input type="radio" [value]="true" required ngbButton/>Yes
+                </label>
+                <label class="btn btn-outline-dark" ngbButtonLabel>
+                  <input type="radio" [value]="false" required ngbButton/>No
+                </label>
+              </div>
+            </div>
+            <div><b>Dietary Comments</b></div>
+            <div class="form-group">
+              <input type="text" formControlName="dietaryComments"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-1"></div>
+    </ng-container>
+  </div>
+  <button class="btn btn-primary" type="submit" [disabled]="!rsvpModifyForm.valid">Submit</button>
+</form>
+
+
+
+
+
+
+
+

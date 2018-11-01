@@ -1,0 +1,88 @@
+/* Carousel */
+.carousel {
+  margin-bottom: 2rem;
+  height: auto;
+  width: 75%;
+}
+
+.control-arrow {
+  color: black;
+}
+
+.carousel .control-arrow { visibility: hidden; }
+.carousel .carousel-control-prev:hover .control-arrow{ visibility: visible; }
+.carousel .carousel-control-next:hover .control-arrow{ visibility: visible; }
+
+#titleDiv, .welcomeText, #daysRemainingText {
+  font-family: 'Niconne', cursive;
+  text-align: center;
+}
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+/*Extra small devices (portrait phones, less than 576px) */
+
+.carousel-image {
+  height: auto;
+  width: 100%;
+  border-style: solid;
+  border-width: 2rem;
+  border-color: silver;
+}
+
+.welcomeText {
+  font-size: 2rem;
+}
+
+#titleDiv > h1{
+  font-size: 4rem;
+}
+
+#daysRemainingText{
+  font-size: 1.5rem;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) { }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  #titleDiv > h1{
+    font-size: 5rem;
+  }
+  .welcomeText {
+    font-size: 3rem;
+  }
+  #daysRemainingText{
+    font-size: 2rem;
+  }
+  .carousel-control-prev{
+    margin-left: -1rem;
+  }
+
+  .carousel-control-next{
+    margin-right: -1rem;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  #titleDiv > h1{
+    font-size: 6rem;
+  }
+}
+
+/*Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .carousel-item > img {
+    border-width: 3rem;
+  }
+  .carousel-control-prev{
+    margin-left: -2rem;
+  }
+
+  .carousel-control-next{
+    margin-right: -2rem;
+  }
+}

@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-1 col-sm-2 col-md-2 col-lg-3"></div>
+    <div id="titleDiv" class="col-xs-10 col-sm-8 col-md-8 col-lg-6">
+      <h1>Bryan
+        <small>&amp;</small>
+        Erica
+      </h1>
+    </div>
+    <div class="col-xs-1 col-sm-8 col-md-4 col-lg-3">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1 col-sm-2 col-md-2 col-lg-3"></div>
+    <div class="col-xs-10 col-sm-8 col-md-8 col-lg-6">
+      
+      <ngb-carousel class="carousel slide mx-auto d-block">
+        <ng-template ngbSlide>
+          <img class="carousel-image" [src]="image3" alt="Random first slide">
+        </ng-template>
+        <ng-template ngbSlide>
+          <img class="carousel-image" [src]="image2" alt="Random second slide">
+        </ng-template>
+        <ng-template ngbSlide>
+          <img class="carousel-image" [src]="image1" alt="Random third slide">
+        </ng-template>
+      </ngb-carousel>
+    </div>
+    
+    <div class="col-xs-1 col-sm-2 col-md-2 col-lg-3"></div>
+  </div>
+  <div class="row" style="text-align: center;">
+    <div class="col-xs-1 col-sm-2 col-md-2 col-lg-3"></div>
+    <div class="col-xs-10 col-sm-8 col-md-8 col-lg-6">
+      <h2 class="welcomeText">Join us as we celebrate</h2>
+      <h2 class="welcomeText">on September 20th 2019 at Landerhaven</h2>
+      <p id="daysRemainingText">{{remainingDays}} days remaining</p>
+    </div>
+    <div class="col-xs-1 col-sm-2 col-md-2 col-lg-3"></div>
+  </div>
+</div>
