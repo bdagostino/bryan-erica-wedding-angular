@@ -17,7 +17,7 @@ export class RsvpFormComponent implements OnInit {
   guest2 = new Guest(1, 'Elizabeth', 'Swan', false, true, null, true, 'I hate peanuts', false, null);
   guest3 = new Guest(1, 'Bryan', 'D', false, true, null, false, 'I hate apples', true, null);
 
-  invitation = new Invitation(1, [this.guest1, this.guest2, this.guest3], [this.guest2, this.guest1], 2, 'ABCD');
+  invitation = new Invitation(1, [this.guest1, this.guest2, this.guest3], [], 5, 'ABCD');
 
 
   rsvpModifyForm: FormGroup;
@@ -58,12 +58,42 @@ export class RsvpFormComponent implements OnInit {
     return additionalGuestList;
   }
 
-  onSubmit() {
-    console.log(this.rsvpModifyForm.value);
+  onSubmitForm() {
+    if (this.rsvpModifyForm.valid) {
+      console.log('Form Valid');
+
+    } else {
+      console.log('Form Invalid');
+      // this.rsvpModifyForm.markAsTouched();
+      this.validateFields(this.rsvpModifyForm);
+      // this.rsvpModifyForm.markAsTouched();
+      // Object.keys(this.rsvpModifyForm.controls).forEach(field => {
+      //   const control = this.rsvpModifyForm.get(field);
+      //   control.markAsTouched({onlySelf: true});
+      // });
+    }
+
+  }
+
+  validateFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({onlySelf: true});
+      } else if (control instanceof FormGroup) {
+        this.validateFields(control);
+      } else if (control instanceof FormArray) {
+        control.controls.forEach(inner => {
+          if (inner instanceof FormGroup) {
+            this.validateFields(inner);
+          }
+        });
+      }
+    });
   }
 
   addGuest() {
-    const guest = this.createGuestFormControl('a', 'b', null, null, null, null, null);
+    const guest = this.createGuestFormControl('', '', null, null, null, null, null);
     this.additionalGuestListForms.push(guest);
   }
 

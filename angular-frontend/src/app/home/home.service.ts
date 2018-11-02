@@ -13,20 +13,22 @@ export class HomeService {
   }
 
   getDaysRemaining(): Observable<string> {
-    return this.http.get<string>('http://' + environment.host + ':8080/getRemainingDays').pipe(timeout(1000), retry(2));
+    return this.http.get<string>(environment.host + '/getRemainingDays').pipe(timeout(1000), retry(2));
   }
 
   getImage1() {
-    return 'http://' + environment.host + ':8080/getImage1';
-    // return 'assets/img/home/P1010144.JPG';
+    return 'https://passcdn-cf1.pass.us/07s5h3417260/m4Wq5540940376l.jpg';
+    // return 'http://' + environment.host + ':8080/getImage1';
   }
 
   getImage2() {
-    return 'http://' + environment.host + ':8080/getImage2';
+    return 'https://passcdn-cf1.pass.us/07s5h3417260/8Stlq540940628l.jpg';
+    // return 'http://' + environment.host + ':8080/getImage2';
   }
 
   getImage3() {
-    return 'http://' + environment.host + ':8080/getImage3';
+    return 'https://passcdn-cf1.pass.us/07s5h3417260/kc3qh540940660l.jpg';
+    // return 'http://' + environment.host + ':8080/getImage3';
   }
 
   loadCarouselImages() {

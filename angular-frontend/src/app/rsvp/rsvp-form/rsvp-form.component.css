@@ -1,5 +1,38 @@
-.card{
+.card {
   text-align: center;
   margin-top: 1rem;
   color: black;
+}
+
+.card-header, h2 {
+  font-family: 'Niconne', cursive;
+}
+
+.card-header {
+  text-align: center;
+}
+
+.card-body-content {
+  width: 50%;
+  margin: 0% 25%;
+}
+
+.card-body-content > input, select, h6 {
+  width: 100%;
+}
+
+h2 {
+  font-size: 3.5rem;
+}
+
+h3 {
+  font-size: 2.5rem;
+}
+
+#submitButton {
+  width: 100%;
+}
+
+#submitButton2 {
+  width: 100%;
 }

@@ -13,6 +13,6 @@ export class RsvpService {
   }
 
   searchForInvitation(model: RsvpSearch): Observable<string> {
-    return this.http.post<string>('http://' + environment.host + ':8080/rsvp/submitForm', model);
+    return this.http.post<string>(environment.host + '/rsvp/submitForm', model);
   }
 }
