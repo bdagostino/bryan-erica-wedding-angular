@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {DetailsService} from '../details.service';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-accommodations',
@@ -7,16 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccommodationsComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private detailsService: DetailsService, private domSanitizer: DomSanitizer) {
   }
 
-  googleMapsUrl = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyCf129o0UMKrMFrIz8hLAtUf-Dl_sCGhik&q=6103 Landerhaven Dr, Mayfield Heights, OH 44124';
-  key = 'AIzaSyCf129o0UMKrMFrIz8hLAtUf-Dl_sCGhik';
-  address = '6103 Landerhaven Dr, Mayfield Heights, OH 44124';
+  googleMapsUrl: SafeResourceUrl;
+  loadingMessage = 'Loading Google Maps...';
 
-
-
-
+  ngOnInit() {
+    this.detailsService.getHotelDetails().subscribe(googleMapDetails => {
+      this.googleMapsUrl = this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.google.com/maps/embed/v1/place?key='
+        + googleMapDetails.googleApiKey + '&q=' + googleMapDetails.searchAddress);
+    }, error => {
+      this.loadingMessage = 'Error Loading Google Maps';
+      console.log(error);
+    });
+  }
 }
