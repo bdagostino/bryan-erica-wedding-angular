@@ -15,6 +15,7 @@ import { LocationComponent } from './details/location/location.component';
 import { RsvpSearchComponent } from './rsvp/rsvp-search/rsvp-search.component';
 import { RsvpFormComponent } from './rsvp/rsvp-form/rsvp-form.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { BridesmaidsComponent } from './stories/bridesmaids/bridesmaids/bridesmaids.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     AccommodationsComponent,
     LocationComponent,
     RsvpSearchComponent,
-    RsvpFormComponent
+    RsvpFormComponent,
+    BridesmaidsComponent
   ],
   imports: [
     BrowserModule,

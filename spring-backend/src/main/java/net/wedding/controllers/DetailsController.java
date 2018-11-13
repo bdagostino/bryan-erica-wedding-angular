@@ -13,20 +13,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class DetailsController {
 
     private String googleEmbeddedApiKey;
-    private String staybridgeHotelAddress;
+    private String hotelAddress;
     private String weddingLocationAddress;
 
     public DetailsController(@Value("${googleEmbeddedApiKey}") final String googleEmbeddedApiKey,
-                             @Value("${staybridgeHotelAddress}") final String staybridgeHotelAddress,
+                             @Value("${staybridgeHotelAddress}") final String hotelAddress,
                              @Value("${weddingLocationAddress}") final String weddingLocationAddress) {
         this.googleEmbeddedApiKey = googleEmbeddedApiKey;
-        this.staybridgeHotelAddress = staybridgeHotelAddress;
+        this.hotelAddress = hotelAddress;
         this.weddingLocationAddress = weddingLocationAddress;
     }
 
     @GetMapping(value = "/get-hotel-details")
     public GoogleMapsDetails getHotelDetails() {
-        return new GoogleMapsDetails(this.googleEmbeddedApiKey, this.staybridgeHotelAddress);
+        return new GoogleMapsDetails(this.googleEmbeddedApiKey, this.hotelAddress);
     }
 
     @GetMapping(value = "/get-location-details")

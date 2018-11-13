@@ -6,13 +6,15 @@ import {AccommodationsComponent} from './details/accommodations/accommodations.c
 import {LocationComponent} from './details/location/location.component';
 import {RsvpSearchComponent} from './rsvp/rsvp-search/rsvp-search.component';
 import {RsvpFormComponent} from './rsvp/rsvp-form/rsvp-form.component';
+import {BridesmaidsComponent} from './stories/bridesmaids/bridesmaids/bridesmaids.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
   {
     path: 'stories',
     children: [
-      {path: 'our-story', component: OurStoryComponent}
+      {path: 'our-story', component: OurStoryComponent},
+      {path: 'bridesmaids', component: BridesmaidsComponent}
     ]
   },
   {
