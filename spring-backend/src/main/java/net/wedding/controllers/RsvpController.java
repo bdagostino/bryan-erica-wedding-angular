@@ -1,6 +1,9 @@
 package net.wedding.controllers;
 
+import net.wedding.models.rsvp.RsvpSearchRequest;
+import net.wedding.models.rsvp.RsvpSearchResponse;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -9,49 +12,13 @@ import org.springframework.web.bind.annotation.*;
 public class RsvpController {
 
 
-    @PostMapping(path = "/submitForm", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/search", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    RsvpResponse formSubmit(@RequestBody RsvpSearch rsvpSearch) throws Exception {
+    ResponseEntity<RsvpSearchResponse> formSubmit(@RequestBody RsvpSearchRequest rsvpSearch) throws Exception {
         System.out.println("Form Submitted");
-        System.out.println("InvitationCode: " + rsvpSearch.getInvitationCode() + ", Error Message: " + rsvpSearch.getErrorMessage());
+        System.out.println("InvitationCode: " + rsvpSearch.getInvitationCode());
 
-        return new RsvpResponse("Success");
-    }
-
-    static class RsvpSearch {
-        public String invitationCode;
-        public String errorMessage;
-
-        public String getInvitationCode() {
-            return invitationCode;
-        }
-
-        public void setInvitationCode(String invitationCode) {
-            this.invitationCode = invitationCode;
-        }
-
-        public String getErrorMessage() {
-            return errorMessage;
-        }
-
-        public void setErrorMessage(String errorMessage) {
-            this.errorMessage = errorMessage;
-        }
-    }
-
-    static class RsvpResponse {
-        public String value;
-
-        RsvpResponse(final String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        public void setValue(String value) {
-            this.value = value;
-        }
+        // return ResponseEntity.ok(new RsvpResponse(false, "Invitation Not Found"));
+        return ResponseEntity.ok(new RsvpSearchResponse(true, "Invitation Not Found"));
     }
 }
