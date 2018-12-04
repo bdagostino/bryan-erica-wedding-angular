@@ -1,4 +1,6 @@
-.idea
+# IDEs and editors
+*.idea
+*.iml
 */target/
 
 ### Angular ###
@@ -12,9 +14,6 @@ angular-frontend/app/**/*.js.map
 # dependencies
 angular-frontend/node_modules
 angular-frontend/bower_components
-
-# IDEs and editors
-angular-frontend/.idea
 
 # misc
 angular-frontend/.sass-cache

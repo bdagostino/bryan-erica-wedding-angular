@@ -1,0 +1,9 @@
+h1 {
+  font-family: 'Niconne', cursive;
+  font-size: 4rem;
+  text-align: center;
+}
+
+.hidden {
+  visibility: hidden;
+}

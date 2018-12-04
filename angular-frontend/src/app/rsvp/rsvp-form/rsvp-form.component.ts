@@ -17,7 +17,7 @@ export class RsvpFormComponent implements OnInit {
   guest2 = new Guest(1, 'Elizabeth', 'Swan', false, true, null, true, 'I hate peanuts', false, null);
   guest3 = new Guest(1, 'Bryan', 'D', false, true, null, false, 'I hate apples', true, null);
 
-  invitation = new Invitation(1, [this.guest1, this.guest2, this.guest3], [], 5, 'ABCD');
+  invitation = new Invitation(1, [this.guest1, this.guest2, this.guest3], [], 2, 'ABCD');
 
 
   rsvpModifyForm: FormGroup;

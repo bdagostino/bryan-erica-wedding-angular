@@ -3,11 +3,11 @@ import {TemplateRef} from '@angular/core';
 
 export abstract class BaseModal {
 
-  protected constructor(private modalService: NgbModal) {
+  protected constructor(private _modalService: NgbModal) {
   }
 
   openModalBase(modalTemplate: TemplateRef<NgbModal>) {
-    return this.modalService.open(modalTemplate, {ariaLabelledBy: 'modal-basic-title'});
+    return this._modalService.open(modalTemplate);
   }
 
   closeModalBase(ngModalRef: NgbModalRef) {

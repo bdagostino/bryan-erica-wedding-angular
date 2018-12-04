@@ -33,8 +33,12 @@ export class FoodComponent implements OnInit {
     {headerName: 'Action', cellRendererFramework: EditDeleteRendererComponent, autoHeight: true}
   ];
 
+  foodSavedStatus: number;
+  staticAlertClosed = false;
+
 
   ngOnInit() {
+
   }
 
   onGridReady(params) {
@@ -42,7 +46,7 @@ export class FoodComponent implements OnInit {
     this.gridColumnApi = params.columnApi;
     this.gridApi.sizeColumnsToFit();
 
-    this.http.get(environment.host + '/admin/all-food')
+    this.http.get(environment.host + '/admin/foods')
       .subscribe(data => {
         this.rowData = data;
       });
@@ -57,6 +61,24 @@ export class FoodComponent implements OnInit {
   }
 
   deleteRow(nodeData: any) {
-    log('Delete Row is called for: ' + nodeData.type);
+    log('Delete Row is called for: ' + nodeData.id);
+    this.http.delete(environment.host + '/admin/foods/' +nodeData.id).subscribe();
+
+  }
+
+  addFood() {
+    this.modalEdit.modalTitle = 'Add Food';
+    this.modalEdit.openModal();
+  }
+
+  saveFood(status: number) {
+    this.foodSavedStatus = status;
+    if(status === 0){
+      setTimeout(() => this.staticAlertClosed = true, 2000);
+      this.http.get(environment.host + '/admin/foods')
+        .subscribe(data => {
+          this.rowData = data;
+        });
+    }
   }
 }

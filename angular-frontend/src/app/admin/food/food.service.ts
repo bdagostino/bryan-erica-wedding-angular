@@ -20,7 +20,10 @@ export class FoodService {
         'Authorization': 'my-auth-token'
       })
     };
-    log(environment.host + '/admin/save-food');
-    return this.http.post<void>(environment.host + '/admin/save-food', request, httpOptions);
+    log(environment.host + '//admin/foods');
+    if (request.id != null) {
+      return this.http.put<void>(environment.host + '/admin/foods/' + request.id, request, httpOptions);
+    }
+    return this.http.post<void>(environment.host + '/admin/foods', request, httpOptions);
   }
 }

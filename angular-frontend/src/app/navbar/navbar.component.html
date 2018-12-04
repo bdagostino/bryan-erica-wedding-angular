@@ -28,10 +28,12 @@
           <a class="dropdown-item" href="/details/location">Location</a>
         </div>
       </li>
+
       <li class="nav-item"><a class="nav-link" href="#">Registry</a></li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" style="cursor: pointer" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
-        <div class="dropdown-menu" aria-labelledby="adminDropdown">
+
+      <li class="nav-item dropdown" ngbDropdown>
+        <a class="nav-link dropdown-toggle" style="cursor: pointer" id="adminDropdown" role="button" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>Admin</a>
+        <div class="dropdown-menu" aria-labelledby="adminDropdown" ngbDropdownMenu>
           <a class="dropdown-item" href="/admin/food">Food</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="/admin/guest">Guest</a>
