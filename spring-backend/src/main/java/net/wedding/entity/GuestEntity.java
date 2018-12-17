@@ -1,4 +1,4 @@
-package net.wedding.models;
+package net.wedding.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -6,16 +6,16 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "guest")
-public class Guest {
+public class GuestEntity {
 
     private static final int FIRST_NAME_LENGTH = 40;
     private static final int LAST_NAME_LENGTH = 40;
 
-    public Guest() {
+    public GuestEntity() {
 
     }
 
-    public Guest(final int id, final String firstName, final String lastName) {
+    public GuestEntity(final int id, final String firstName, final String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -41,9 +41,9 @@ public class Guest {
     @Column(name = "reception_attendance")
     private Boolean receptionAttendance;
 
-    @ManyToOne(targetEntity = Food.class)
+    @ManyToOne(targetEntity = FoodEntity.class)
     @JoinColumn(name = "food_id")
-    private Food food;
+    private FoodEntity foodEntity;
 
     @Column(name = "dietary_concerns")
     private Boolean dietaryConcerns;
@@ -51,11 +51,13 @@ public class Guest {
     @Column(name = "dietary_comments")
     private String dietaryComments;
 
-    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Invitation.class)
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = InvitationEntity.class)
     @JoinColumn(name = "invite_id", nullable = false)
-    private Invitation invitation;
+    private InvitationEntity invitationEntity;
 
-    private Boolean invitedPerson = Boolean.FALSE;
+    @Column(name = "additional_guest")
+    @NotNull
+    private Boolean additionalGuest;
 
     public Integer getId() {
         return id;
@@ -77,24 +79,24 @@ public class Guest {
         return lastName;
     }
 
-    public Boolean getInvitedPerson() {
-        return invitedPerson;
+    public Boolean getAdditionalGuest() {
+        return additionalGuest;
     }
 
-    public void setInvitedPerson(Boolean invitedPerson) {
-        this.invitedPerson = invitedPerson;
+    public void setAdditionalGuest(Boolean additionalGuest) {
+        this.additionalGuest = additionalGuest;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName.trim();
     }
 
-    public Food getFood() {
-        return food;
+    public FoodEntity getFoodEntity() {
+        return foodEntity;
     }
 
-    public void setFood(Food food) {
-        this.food = food;
+    public void setFoodEntity(FoodEntity foodEntity) {
+        this.foodEntity = foodEntity;
     }
 
     public Boolean getDietaryConcerns() {
@@ -113,12 +115,12 @@ public class Guest {
         this.dietaryComments = dietaryComments;
     }
 
-    public Invitation getInvitation() {
-        return invitation;
+    public InvitationEntity getInvitationEntity() {
+        return invitationEntity;
     }
 
-    public void setInvitation(Invitation invitation) {
-        this.invitation = invitation;
+    public void setInvitationEntity(InvitationEntity invitationEntity) {
+        this.invitationEntity = invitationEntity;
     }
 
     public Boolean getCeremonyAttendance() {
@@ -135,5 +137,16 @@ public class Guest {
 
     public void setReceptionAttendance(Boolean receptionAttendance) {
         this.receptionAttendance = receptionAttendance;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof GuestEntity)) {
+            return false;
+        }
+        return this.id != null && this.id.equals(((GuestEntity) o).id);
     }
 }

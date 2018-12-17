@@ -18,7 +18,7 @@ public class RsvpController {
         System.out.println("Form Submitted");
         System.out.println("InvitationCode: " + rsvpSearch.getInvitationCode());
 
-        // return ResponseEntity.ok(new RsvpResponse(false, "Invitation Not Found"));
-        return ResponseEntity.ok(new RsvpSearchResponse(true, "Invitation Not Found"));
+        // return ResponseEntity.ok(new RsvpResponse(false, "InvitationEntity Not Found"));
+        return ResponseEntity.ok(new RsvpSearchResponse(true, "InvitationEntity Not Found"));
     }
 }

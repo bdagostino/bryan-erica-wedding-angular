@@ -1,4 +1,4 @@
-package net.wedding.models;
+package net.wedding.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -6,18 +6,18 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "food")
-public class Food {
+public class FoodEntity {
 
     private static final int TYPE_LENGTH = 25;
     private static final int DESCRIPTION_LENGTH = 150;
 
-    public Food(int id) {
+    public FoodEntity(int id) {
         this.id = id;
         this.type = "";
         this.description = "";
     }
 
-    public Food() {
+    public FoodEntity() {
     }
 
     @Id
@@ -25,12 +25,12 @@ public class Food {
     private Integer id;
 
     @Column(name = "type", nullable = false, length = TYPE_LENGTH)
-    @NotNull(message = "Food Type is Required")
+    @NotNull(message = "FoodEntity Type is Required")
     @Size(min = 1, max = TYPE_LENGTH)
     private String type;
 
     @Column(name = "description", nullable = false, length = DESCRIPTION_LENGTH)
-    @NotNull(message = "Food Description is Required")
+    @NotNull(message = "FoodEntity Description is Required")
     @Size(min = 1, max = DESCRIPTION_LENGTH)
     private String description;
 

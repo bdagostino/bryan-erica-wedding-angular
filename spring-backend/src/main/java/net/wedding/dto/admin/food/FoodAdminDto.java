@@ -1,18 +1,9 @@
-package net.wedding.models.dto;
+package net.wedding.dto.admin.food;
 
-public class FoodDto {
+public class FoodAdminDto {
 
-    private Integer id;
     private String type;
     private String description;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getType() {
         return type;

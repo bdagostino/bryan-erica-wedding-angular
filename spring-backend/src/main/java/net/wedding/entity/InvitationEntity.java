@@ -1,4 +1,4 @@
-package net.wedding.models;
+package net.wedding.entity;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -9,23 +9,23 @@ import java.util.List;
 
 @Entity
 @Table(name = "invitation")
-public class Invitation {
+public class InvitationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Valid
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "invitation", targetEntity = Guest.class, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "invitationEntity", targetEntity = GuestEntity.class, orphanRemoval = true)
     @Column(name = "guest_list")
-    private List<Guest> guestList;
+    private List<GuestEntity> guestEntityList = new ArrayList<>();
 
     @Column(name = "max_guests")
     @NotNull
     @Min(1)
     private Integer maxGuests;
 
-    @Column(name = "invitation_code")
+    @Column(name = "invitation_code", unique = true)
     @NotNull
     private String invitationCode;
 
@@ -37,15 +37,8 @@ public class Invitation {
         this.id = id;
     }
 
-    public List<Guest> getGuestList() {
-        if (this.guestList == null) {
-            this.guestList = new ArrayList<>();
-        }
-        return guestList;
-    }
-
-    public void setGuestList(List<Guest> guestList) {
-        this.guestList = guestList;
+    public List<GuestEntity> getGuestEntityList() {
+        return guestEntityList;
     }
 
     public Integer getMaxGuests() {
@@ -64,23 +57,33 @@ public class Invitation {
         this.invitationCode = invitationCode;
     }
 
-    public List<Integer> getInvitedGuestIndicies(){
+    public List<Integer> getInvitedGuestIndicies() {
         ArrayList<Integer> invitedGuestIndiciesList = new ArrayList<>();
-        for(int index=0;index<this.getGuestList().size();index++){
-            if(this.getGuestList().get(index).getInvitedPerson()){
+        for (int index = 0; index < this.getGuestEntityList().size(); index++) {
+            if (this.getGuestEntityList().get(index).getAdditionalGuest()) {
                 invitedGuestIndiciesList.add(index);
             }
         }
         return invitedGuestIndiciesList;
     }
 
-    public List<Integer> getAdditionalGuestIndicies(){
+    public List<Integer> getAdditionalGuestIndicies() {
         ArrayList<Integer> additionalGuestIndiciesList = new ArrayList<>();
-        for(int index=0;index<this.getGuestList().size();index++){
-            if(!this.getGuestList().get(index).getInvitedPerson()){
+        for (int index = 0; index < this.getGuestEntityList().size(); index++) {
+            if (!this.getGuestEntityList().get(index).getAdditionalGuest()) {
                 additionalGuestIndiciesList.add(index);
             }
         }
         return additionalGuestIndiciesList;
+    }
+
+    public void addGuest(final GuestEntity guestEntity) {
+        this.guestEntityList.add(guestEntity);
+        guestEntity.setInvitationEntity(this);
+    }
+
+    public void removeGuest(final GuestEntity guestEntity) {
+        this.guestEntityList.remove(guestEntity);
+        guestEntity.setInvitationEntity(null);
     }
 }
