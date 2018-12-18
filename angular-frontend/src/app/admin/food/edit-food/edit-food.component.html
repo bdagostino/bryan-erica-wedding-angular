@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="alert alert-warning mt-5" role="alert"><strong>Warning:</strong> Only fix spelling! <br> If this food is no longer required please cancel and delete.</div>
+      <div class="card">
+        <h3 class="card-header">
+          Edit Food
+        </h3>
+        <div class="card-body">
+          <form [formGroup]="editFoodForm" class="needs-validation" method="post">
+
+            <input style="display: none;" formControlName="foodId" required/>
+
+            <div class="form-group">
+              <label for="inputFoodType">Food Type</label>
+              <input id="inputFoodType" type="text" class="form-control" formControlName="foodType"
+                     required pattern="\S(.*\S)?"/>
+              <div class="alert alert-danger" role="alert"
+                   *ngIf="editFoodForm.get('foodType').invalid && editFoodForm.get('foodType').touched">
+                Please enter the food type
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputDescription" class="mt-3">Description</label>
+              <input id="inputDescription" type="text" class="form-control" formControlName="foodDescription"
+                     required pattern="\S(.*\S)?"/>
+              <div class="alert alert-danger" role="alert"
+                   *ngIf="editFoodForm.get('foodDescription').invalid && editFoodForm.get('foodDescription').touched">
+                Please enter the food description
+              </div>
+            </div>
+
+          </form>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-outline-dark mr-2" (click)="onSubmit()">Save</button>
+          <a class="btn btn-outline-dark" href="/admin/food">Cancel</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>

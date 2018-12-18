@@ -1,27 +1,38 @@
 <div class="container-fluid">
-<div class="row">
-  <div class="col-md-2"></div>
-  <div class="col-md-8">
-    <ngb-alert *ngIf="foodSavedStatus==0 && !staticAlertClosed" type="success" [dismissible]="false">Food Saved</ngb-alert>
-    <ngb-alert *ngIf="foodSavedStatus==-1&& !staticAlertClosed" type="danger"  [dismissible]="false">Food Saved</ngb-alert>
-    <button class="btn btn-dark btn-block mt-5" (click)="addFood()">Add Food</button>
-    <ag-grid-angular
-      #agGrid
-      style="width: 100%; height: 500px;"
-      class="ag-theme-balham"
-      [enableSorting]="true"
-      [enableFilter]="true"
-      [rowData]="rowData"
-      [columnDefs]="columnDefs"
-      [rowSelection]="rowSelection"
-      [context]="context"
-      (gridReady)="onGridReady($event)"
-    >
-    </ag-grid-angular>
-    
-    <app-food-modal #foodModal (saveEvent)="saveFood($event)"></app-food-modal>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <ngb-alert *ngIf="foodSavedStatus==0 && !staticAlertClosed" type="success" [dismissible]="false">Food Saved
+      </ngb-alert>
+      <ngb-alert *ngIf="foodSavedStatus==-1&& !staticAlertClosed" type="danger" [dismissible]="false">Food Saved
+      </ngb-alert>
+      <a class="btn btn-dark btn-block mt-5" href="/admin/food/add-food">Add Food</a>
+      <table class="table table-striped">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col" style="display: none">Id</th>
+          <th scope="col">Type</th>
+          <th scope="col">Description</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let food of foods">
+          <td style="display: none">{{food.id}}</td>
+          <td>{{food.type}}</td>
+          <td>{{food.description}}</td>
+          <td>
+            <span>
+              <!--<a class="btn btn-sm btn-outline-dark mr-1" href="/admin/food/edit-food">Edit</a>-->
+              <button class='btn btn-sm btn-outline-dark mr-2' (click)="editRow(food)">Edit</button>
+              <button class='btn btn-sm btn-outline-dark' (click)="deleteRow(food)">Delete</button>
+            </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-2"></div>
   </div>
-  <div class="col-md-2"></div>
-</div>
 </div>
 

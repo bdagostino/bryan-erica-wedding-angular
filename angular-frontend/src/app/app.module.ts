@@ -15,12 +15,12 @@ import {RsvpSearchComponent} from './rsvp/rsvp-search/rsvp-search.component';
 import {RsvpFormComponent} from './rsvp/rsvp-form/rsvp-form.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {BridesmaidsComponent} from './stories/bridesmaids/bridesmaids/bridesmaids.component';
-import {AgGridModule} from 'ag-grid-angular';
 import {FoodComponent} from './admin/food/food.component';
 import {GuestComponent} from './admin/guest/guest.component';
 import {InvitationComponent} from './admin/invitation/invitation.component';
-import {FoodModalComponent} from './admin/food/food-modal/food-modal.component';
-import { EditDeleteRendererComponent } from './admin/modal/edit-delete-renderer/edit-delete-renderer.component';
+import {GuestListRendererComponent} from './admin/invitation/guest-list-renderer/guest-list-renderer.component';
+import {AddFoodComponent} from './admin/food/add-food/add-food.component';
+import { EditFoodComponent } from './admin/food/edit-food/edit-food.component';
 
 @NgModule({
   declarations: [
@@ -36,8 +36,9 @@ import { EditDeleteRendererComponent } from './admin/modal/edit-delete-renderer/
     FoodComponent,
     GuestComponent,
     InvitationComponent,
-    FoodModalComponent,
-    EditDeleteRendererComponent
+    GuestListRendererComponent,
+    AddFoodComponent,
+    EditFoodComponent
   ],
   imports: [
     BrowserModule,
@@ -46,8 +47,7 @@ import { EditDeleteRendererComponent } from './admin/modal/edit-delete-renderer/
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    FontAwesomeModule,
-    AgGridModule.withComponents([EditDeleteRendererComponent])
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

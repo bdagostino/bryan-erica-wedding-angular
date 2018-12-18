@@ -21,6 +21,12 @@ public class AdminViewController {
         return FORWARD_INDEX;
     }
 
+    @GetMapping(value = "/food/add-food")
+    public String addFoodView() {
+        logger.debug("Food Admin Page Accessed");
+        return FORWARD_INDEX;
+    }
+
     @GetMapping(value = "/guest")
     public String guest() {
         logger.debug("Guest Admin Page Accessed");

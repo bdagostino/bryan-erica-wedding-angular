@@ -10,6 +10,8 @@ import {BridesmaidsComponent} from './stories/bridesmaids/bridesmaids/bridesmaid
 import {FoodComponent} from './admin/food/food.component';
 import {GuestComponent} from './admin/guest/guest.component';
 import {InvitationComponent} from './admin/invitation/invitation.component';
+import {AddFoodComponent} from "./admin/food/add-food/add-food.component";
+import {EditFoodComponent} from "./admin/food/edit-food/edit-food.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -38,6 +40,10 @@ const routes: Routes = [
     path: 'admin',
     children: [
       {path: 'food', component: FoodComponent},
+      {path: 'food', children: [
+          {path: 'add-food', component: AddFoodComponent},
+          {path: 'edit-food', component: EditFoodComponent}
+        ]},
       {path: 'guest', component: GuestComponent},
       {path: 'invitation', component: InvitationComponent}
     ]
