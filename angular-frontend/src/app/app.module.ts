@@ -18,9 +18,9 @@ import {BridesmaidsComponent} from './stories/bridesmaids/bridesmaids/bridesmaid
 import {FoodComponent} from './admin/food/food.component';
 import {GuestComponent} from './admin/guest/guest.component';
 import {InvitationComponent} from './admin/invitation/invitation.component';
-import {GuestListRendererComponent} from './admin/invitation/guest-list-renderer/guest-list-renderer.component';
 import {AddFoodComponent} from './admin/food/add-food/add-food.component';
 import { EditFoodComponent } from './admin/food/edit-food/edit-food.component';
+import { CreateInvitationComponent } from './admin/invitation/create-invitation/create-invitation.component';
 
 @NgModule({
   declarations: [
@@ -36,9 +36,9 @@ import { EditFoodComponent } from './admin/food/edit-food/edit-food.component';
     FoodComponent,
     GuestComponent,
     InvitationComponent,
-    GuestListRendererComponent,
     AddFoodComponent,
-    EditFoodComponent
+    EditFoodComponent,
+    CreateInvitationComponent
   ],
   imports: [
     BrowserModule,

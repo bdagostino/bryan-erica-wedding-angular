@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GuestListRendererComponent } from './guest-list-renderer.component';
+import { CreateInvitationComponent } from './create-invitation.component';
 
-describe('GuestListRendererComponent', () => {
-  let component: GuestListRendererComponent;
-  let fixture: ComponentFixture<GuestListRendererComponent>;
+describe('CreateInvitationComponent', () => {
+  let component: CreateInvitationComponent;
+  let fixture: ComponentFixture<CreateInvitationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GuestListRendererComponent ]
+      declarations: [ CreateInvitationComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GuestListRendererComponent);
+    fixture = TestBed.createComponent(CreateInvitationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

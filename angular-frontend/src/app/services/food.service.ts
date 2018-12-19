@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../environments/environment';
-import {Food} from '../../common-models/food';
+import {environment} from '../../environments/environment';
+import {Food} from '../common-models/food';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class FoodService {
   constructor(private http: HttpClient) {
   }
 
-  getAllFood(): Observable<Food[]> {
+  getAllFoodAdmin(): Observable<Food[]> {
     return this.http.get<Food[]>(environment.host + '/admin/foods');
   }
 
@@ -30,5 +30,9 @@ export class FoodService {
 
   getFoodById(id: number): Observable<Food> {
     return this.http.get<Food>(environment.host + '/admin/foods/' + id);
+  }
+
+  getAllFood(): Observable<Food[]> {
+    return this.http.get<Food[]>(environment.host + '/foods');
   }
 }

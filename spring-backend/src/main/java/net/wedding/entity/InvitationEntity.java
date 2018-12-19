@@ -1,5 +1,7 @@
 package net.wedding.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -18,7 +20,8 @@ public class InvitationEntity {
     @Valid
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "invitationEntity", targetEntity = GuestEntity.class, orphanRemoval = true)
     @Column(name = "guest_list")
-    private List<GuestEntity> guestEntityList = new ArrayList<>();
+    @JsonManagedReference
+    private List<GuestEntity> guestList = new ArrayList<>();
 
     @Column(name = "max_guests")
     @NotNull
@@ -37,8 +40,8 @@ public class InvitationEntity {
         this.id = id;
     }
 
-    public List<GuestEntity> getGuestEntityList() {
-        return guestEntityList;
+    public List<GuestEntity> getGuestList() {
+        return guestList;
     }
 
     public Integer getMaxGuests() {
@@ -57,33 +60,13 @@ public class InvitationEntity {
         this.invitationCode = invitationCode;
     }
 
-    public List<Integer> getInvitedGuestIndicies() {
-        ArrayList<Integer> invitedGuestIndiciesList = new ArrayList<>();
-        for (int index = 0; index < this.getGuestEntityList().size(); index++) {
-            if (this.getGuestEntityList().get(index).getAdditionalGuest()) {
-                invitedGuestIndiciesList.add(index);
-            }
-        }
-        return invitedGuestIndiciesList;
-    }
-
-    public List<Integer> getAdditionalGuestIndicies() {
-        ArrayList<Integer> additionalGuestIndiciesList = new ArrayList<>();
-        for (int index = 0; index < this.getGuestEntityList().size(); index++) {
-            if (!this.getGuestEntityList().get(index).getAdditionalGuest()) {
-                additionalGuestIndiciesList.add(index);
-            }
-        }
-        return additionalGuestIndiciesList;
-    }
-
     public void addGuest(final GuestEntity guestEntity) {
-        this.guestEntityList.add(guestEntity);
+        this.guestList.add(guestEntity);
         guestEntity.setInvitationEntity(this);
     }
 
     public void removeGuest(final GuestEntity guestEntity) {
-        this.guestEntityList.remove(guestEntity);
+        this.guestList.remove(guestEntity);
         guestEntity.setInvitationEntity(null);
     }
 }

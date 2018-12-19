@@ -1,5 +1,4 @@
 import {Food} from './food';
-import {Invitation} from './invitation';
 
 export class Guest {
 
@@ -11,7 +10,6 @@ export class Guest {
               public food: Food,
               public dietaryConcerns: boolean,
               public dietaryComments: string,
-              public plannedGuest: boolean,
-              public invitation: Invitation) {
+              public additionalGuest: boolean) {
   }
 }

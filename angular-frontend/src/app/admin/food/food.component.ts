@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {log} from 'util';
-import {FoodService} from "./food.service";
+import {FoodService} from "../../services/food.service";
 import {Food} from "../../common-models/food";
 import {Router} from "@angular/router";
 
@@ -21,7 +21,7 @@ export class FoodComponent implements OnInit {
 
 
   ngOnInit() {
-    this.foodService.getAllFood().subscribe(data => {
+    this.foodService.getAllFoodAdmin().subscribe(data => {
       this.foods = data;
     });
   }
@@ -29,7 +29,7 @@ export class FoodComponent implements OnInit {
   deleteRow(food: Food) {
     log('Delete Row is called for: ' + food.id);
     this.foodService.deleteFoodById(food.id).subscribe(success => {
-      this.foodService.getAllFood().subscribe(data => {
+      this.foodService.getAllFoodAdmin().subscribe(data => {
         this.foods = data;
       });
     });

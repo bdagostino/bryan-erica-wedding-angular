@@ -7,6 +7,8 @@ import net.wedding.repositories.InvitationRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class InvitationService {
 
@@ -42,12 +44,12 @@ public class InvitationService {
      * @return generated invitation code
      */
     public String generateInvitationCode() {
-        InvitationEntity invitationEntity;
+        Optional<InvitationEntity> invitationEntity;
         String invitationCode;
         do {
             invitationCode = RandomStringUtils.randomAlphabetic(4).toUpperCase();
             invitationEntity = invitationRepository.findByInvitationCode(invitationCode);
-        } while (invitationEntity != null);
+        } while (invitationEntity.isPresent());
         return invitationCode;
     }
 }

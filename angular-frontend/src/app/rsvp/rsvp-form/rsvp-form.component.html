@@ -1,4 +1,4 @@
-<form [formGroup]="rsvpModifyForm" class="container-fluid form-group">
+<form *ngIf="loaded; else loading" [formGroup]="rsvpModifyForm" class="container-fluid form-group">
   
   <div class="row mt-5">
     <div class="col-lg-2"></div>
@@ -14,9 +14,13 @@
       <div *ngIf="(i%2)==0" class="col-lg-2"></div>
       <div class="col-lg">
         <div class="card" [formGroupName]=i>
+          <!--<h3 class="card-header">-->
+            <!--{{invitation.invitedGuestList[i].firstName + ' ' + invitation.invitedGuestList[i].lastName}}-->
+          <!--</h3>-->
           <h3 class="card-header">
-            {{invitation.invitedGuestList[i].firstName + ' ' + invitation.invitedGuestList[i].lastName}}
+            {{gControl.get('firstName').value + ' ' + gControl.get('lastName').value}}
           </h3>
+
           <div class="card-body">
             <div class="form-group card-body-content">
               <h6><b>Will you be able to attend our ceremony?</b></h6>
@@ -76,7 +80,7 @@
             </div>
             <div class="form-group card-body-content">
               <h6><b>Dietary Comments</b></h6>
-              <input type="text" formControlName="dietaryComments"/>
+              <input type="text" class="form-control" formControlName="dietaryComments"/>
               <div class="alert alert-danger" role="alert"
                    *ngIf="gControl.get('dietaryComments').invalid && gControl.get('dietaryComments').touched">
                 Dietary Comments are Required
@@ -90,17 +94,17 @@
     </ng-container>
   </div>
   
-  <div *ngIf="invitation.maxAdditionalGuests>0" class="row mt-5">
+  <div *ngIf="maxAdditionalGuests>0" class="row mt-5">
     <div class="col-lg-2"></div>
     <div class="col-lg">
       <h2>Additional Guests</h2>
-      <button *ngIf="additionalGuestListForms.controls.length < invitation.maxAdditionalGuests" class="btn btn-info"
+      <button *ngIf="additionalGuestListForms.controls.length < maxAdditionalGuests" class="btn btn-info"
               (click)="addGuest()">Add Additional Guest
       </button>
     </div>
     <div class="col-lg-2"></div>
   </div>
-  <div *ngIf="invitation.maxAdditionalGuests>0" class="row">
+  <div *ngIf="maxAdditionalGuests>0" class="row">
     <ng-container formArrayName="additionalGuestList"
                   *ngFor="let agControl of additionalGuestListForms.controls; let i = index">
       <div *ngIf="i>0 && (i%2)==0" class="w-100"></div>
@@ -116,7 +120,7 @@
           <div class="card-body">
             <div class="form-group card-body-content">
               <h6><b>First Name</b></h6>
-              <input type="text" formControlName="firstName" required>
+              <input type="text" class="form-control" formControlName="firstName" required>
               <div class="alert alert-danger" role="alert"
                    *ngIf="agControl.get('firstName').invalid && agControl.get('firstName').touched">
                 First Name is Required
@@ -124,7 +128,7 @@
             </div>
             <div class="form-group card-body-content">
               <h6><b>Last Name</b></h6>
-              <input type="text" formControlName="lastName" required>
+              <input type="text" class="form-control" formControlName="lastName" required>
               <div class="alert alert-danger" role="alert"
                    *ngIf="agControl.get('lastName').invalid && agControl.get('lastName').touched">
                 Last Name is Required
@@ -188,7 +192,7 @@
             </div>
             <div class="form-group card-body-content">
               <h6><b>Dietary Comments</b></h6>
-              <input type="text" formControlName="dietaryComments"/>
+              <input class="form-control" type="text" formControlName="dietaryComments"/>
               <div class="alert alert-danger" role="alert"
                    *ngIf="agControl.get('dietaryComments').invalid && agControl.get('dietaryComments').touched">
                 Dietary Comments are Required
@@ -210,6 +214,10 @@
     <div class="col-lg-2"></div>
   </div>
 </form>
+
+<ng-template #loading>
+  Loading Invitation...
+</ng-template>
 
 
 

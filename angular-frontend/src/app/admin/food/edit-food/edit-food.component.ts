@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import {FoodService} from "../food.service";
+import {FoodService} from "../../../services/food.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {log} from "util";
+import {log} from 'util';
 import {Food} from "../../../common-models/food";
 
 @Component({

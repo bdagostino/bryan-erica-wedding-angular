@@ -1,9 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {Invitation} from '../../common-models/invitation';
 import {Food} from '../../common-models/food';
-import {Guest} from '../../common-models/guest';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {faWindowClose} from '@fortawesome/free-solid-svg-icons';
+import {ActivatedRoute} from "@angular/router";
+import {RsvpService} from "../rsvp.service";
+import {log} from "util";
+import {InvitationService} from "../../services/invitation.service";
+import {Guest} from "../../common-models/guest";
+import {Invitation} from "../../common-models/invitation";
+import {Observable} from "rxjs";
+import {FoodService} from "../../services/food.service";
 
 @Component({
   selector: 'app-rsvp-form',
@@ -12,23 +18,41 @@ import {faWindowClose} from '@fortawesome/free-solid-svg-icons';
 })
 export class RsvpFormComponent implements OnInit {
   faWindowClose = faWindowClose;
-  foodList = [new Food(1, 'Chicken', 'Roasted Chicken'), new Food(2, 'Steak', 'Ribeye Steak')];
-  guest1 = new Guest(1, 'Jack', 'Sparrow', true, true, this.foodList[1], false, '', true, null);
-  guest2 = new Guest(1, 'Elizabeth', 'Swan', false, true, null, true, 'I hate peanuts', false, null);
-  guest3 = new Guest(1, 'Bryan', 'D', false, true, null, false, 'I hate apples', true, null);
+  //foodList = [new Food(1, 'Chicken', 'Roasted Chicken'), new Food(2, 'Steak', 'Ribeye Steak')];
+  // guest1 = new Guest(1, 'Jack', 'Sparrow', true, true, this.foodList[1], false, '', true, null);
+  // guest2 = new Guest(1, 'Elizabeth', 'Swan', false, true, null, true, 'I hate peanuts', false, null);
+  // guest3 = new Guest(1, 'Bryan', 'D', false, true, null, false, 'I hate apples', true, null);
+  //
+  // invitation = new Invitation(1, [this.guest1, this.guest2, this.guest3], [], 2, 'ABCD');
 
-  invitation = new Invitation(1, [this.guest1, this.guest2, this.guest3], [], 2, 'ABCD');
-
-
+  loaded: boolean;
   rsvpModifyForm: FormGroup;
+  invitedGuestList: Array<Guest>;
+  additionalGuestList: Array<Guest>;
+  maxAdditionalGuests: number;
+  invitedGuestCount: number;
+  foodList: Array<Food>;
 
-  constructor() {
+  constructor(private rsvpService: RsvpService, private route: ActivatedRoute, private invitationService: InvitationService, private foodService: FoodService) {
   }
 
   ngOnInit() {
-    this.rsvpModifyForm = new FormGroup({
-      'invitedGuestList': new FormArray(this.populateInvitedGuestList()),
-      'additionalGuestList': new FormArray(this.populateAdditionalGuestList())
+  this.loaded = false;
+  this.invitedGuestCount = 0;
+
+    this.route.queryParamMap.subscribe(paramMap => {
+      this.invitationService.getInvitationsByInvitationCode(paramMap.get('invitationCode')).subscribe(retrievedInvitation => {
+         this.rsvpModifyForm = new FormGroup({
+          'invitedGuestList': new FormArray(this.populateInvitedGuestList(retrievedInvitation.guestList)),
+          'additionalGuestList': new FormArray(this.populateAdditionalGuestList(retrievedInvitation.guestList))
+        });
+         this.maxAdditionalGuests = retrievedInvitation.maxGuests - this.invitedGuestCount;
+        this.loaded = true;
+      });
+    });
+
+    this.foodService.getAllFood().subscribe(retrievedFoodList => {
+      this.foodList = retrievedFoodList;
     });
   }
 
@@ -40,18 +64,19 @@ export class RsvpFormComponent implements OnInit {
     return this.rsvpModifyForm.get('additionalGuestList') as FormArray;
   }
 
-  populateInvitedGuestList() {
+  populateInvitedGuestList(guestList: Array<Guest>) {
     const invitationGuestList: FormGroup[] = [];
-    this.invitation.invitedGuestList.forEach(guest => {
+    guestList.filter(guest => guest.additionalGuest==false).forEach(guest => {
+      this.invitedGuestCount += 1;
       invitationGuestList.push(this.createGuestFormControl(guest.firstName, guest.lastName, guest.ceremonyAttendance,
         guest.receptionAttendance, guest.food, guest.dietaryConcerns, guest.dietaryComments));
     });
     return invitationGuestList;
   }
 
-  populateAdditionalGuestList() {
+  populateAdditionalGuestList(guestList: Array<Guest>) {
     const additionalGuestList: FormGroup[] = [];
-    this.invitation.additionalGuestList.forEach(guest => {
+    guestList.filter(guest => guest.additionalGuest==true).forEach(guest => {
       additionalGuestList.push(this.createGuestFormControl(guest.firstName, guest.lastName, guest.ceremonyAttendance,
         guest.receptionAttendance, guest.food, guest.dietaryConcerns, guest.dietaryComments));
     });

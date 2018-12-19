@@ -71,8 +71,8 @@ public class AdminInvitationControllerTest {
         InvitationEntity invitationEntity = testEntityManager.find(InvitationEntity.class, Integer.parseInt(id));
         assertThat(invitationEntity).isNotNull();
         assertThat(invitationEntity.getMaxGuests()).isEqualTo(createInvitationDto.getMaxGuestCount());
-        assertThat(invitationEntity.getGuestEntityList()).hasSize(1);
-        GuestEntity guestEntity = invitationEntity.getGuestEntityList().get(0);
+        assertThat(invitationEntity.getGuestList()).hasSize(1);
+        GuestEntity guestEntity = invitationEntity.getGuestList().get(0);
         assertThat(guestEntity.getFirstName()).isEqualTo(createGuestDtoHello.getFirstName());
         assertThat(guestEntity.getLastName()).isEqualTo(createGuestDtoHello.getLastName());
         assertThat(guestEntity.getAdditionalGuest()).isFalse();
@@ -96,12 +96,12 @@ public class AdminInvitationControllerTest {
         InvitationEntity invitationEntity = testEntityManager.find(InvitationEntity.class, Integer.parseInt(id));
         assertThat(invitationEntity).isNotNull();
         assertThat(invitationEntity.getMaxGuests()).isEqualTo(createInvitationDto.getMaxGuestCount());
-        assertThat(invitationEntity.getGuestEntityList()).hasSize(2);
-        final GuestEntity guestEntity1 = invitationEntity.getGuestEntityList().get(0);
+        assertThat(invitationEntity.getGuestList()).hasSize(2);
+        final GuestEntity guestEntity1 = invitationEntity.getGuestList().get(0);
         assertThat(guestEntity1.getFirstName()).isEqualTo(createGuestDtoHello.getFirstName());
         assertThat(guestEntity1.getLastName()).isEqualTo(createGuestDtoHello.getLastName());
         assertThat(guestEntity1.getAdditionalGuest()).isFalse();
-        final GuestEntity guestEntity2 = invitationEntity.getGuestEntityList().get(1);
+        final GuestEntity guestEntity2 = invitationEntity.getGuestList().get(1);
         assertThat(guestEntity2.getFirstName()).isEqualTo(createGuestDtoSunny.getFirstName());
         assertThat(guestEntity2.getLastName()).isEqualTo(createGuestDtoSunny.getLastName());
         assertThat(guestEntity2.getAdditionalGuest()).isFalse();
@@ -120,7 +120,7 @@ public class AdminInvitationControllerTest {
 
     @Test
     public void testRetrieveNoInvitations() {
-        final ResponseEntity<List<InvitationEntity>> responseEntity = adminInvitationController.retrieveAllInvitations();
+        final ResponseEntity<List<InvitationEntity>> responseEntity = adminInvitationController.retrieveInvitations();
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
@@ -140,7 +140,7 @@ public class AdminInvitationControllerTest {
         this.adminInvitationController.createInvitation(createInvitationDto2);
 
 
-        final ResponseEntity<List<InvitationEntity>> responseEntity = adminInvitationController.retrieveAllInvitations();
+        final ResponseEntity<List<InvitationEntity>> responseEntity = adminInvitationController.retrieveInvitations();
         final List<InvitationEntity> invitationEntityList = responseEntity.getBody();
         assertThat(invitationEntityList).hasSize(2);
     }
@@ -175,5 +175,28 @@ public class AdminInvitationControllerTest {
         InvitationEntity invitationEntity = invitationResponseEntity.getBody();
         assertThat(invitationEntity.getMaxGuests()).isEqualTo(createInvitationDto2.getMaxGuestCount());
         assertThat(invitationEntity.getInvitationCode()).isNotBlank();
+    }
+
+    @Test
+    public void testRetrieveInvitationsByInvitationCode(){
+        final CreateInvitationDto createInvitationDto1 = new CreateInvitationDto();
+        createInvitationDto1.setMaxGuestCount(2);
+        createInvitationDto1.getGuestList().add(createGuestDtoHello);
+        createInvitationDto1.getGuestList().add(createGuestDtoSunny);
+
+        final CreateInvitationDto createInvitationDto2 = new CreateInvitationDto();
+        createInvitationDto2.setMaxGuestCount(4);
+        createInvitationDto2.getGuestList().add(createGuestDtoSunny);
+        createInvitationDto2.getGuestList().add(createGuestDtoHello);
+
+        this.adminInvitationController.createInvitation(createInvitationDto1);
+        ResponseEntity responseEntity = this.adminInvitationController.createInvitation(createInvitationDto2);
+        final URI locationHeader = responseEntity.getHeaders().getLocation();
+        String id = StringUtils.substringAfterLast(locationHeader.toString(), "/");
+
+        final ResponseEntity<InvitationEntity> invitationResponseById = this.adminInvitationController.retrieveInvitationsById(Integer.parseInt(id));
+        final InvitationEntity invitationEntityById = invitationResponseById.getBody();
+        assertThat(invitationEntityById.getMaxGuests()).isEqualTo(createInvitationDto2.getMaxGuestCount());
+        assertThat(invitationEntityById.getInvitationCode()).isNotBlank();
     }
 }

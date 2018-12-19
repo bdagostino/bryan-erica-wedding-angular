@@ -1,5 +1,7 @@
 package net.wedding.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -43,7 +45,7 @@ public class GuestEntity {
 
     @ManyToOne(targetEntity = FoodEntity.class)
     @JoinColumn(name = "food_id")
-    private FoodEntity foodEntity;
+    private FoodEntity food;
 
     @Column(name = "dietary_concerns")
     private Boolean dietaryConcerns;
@@ -53,6 +55,7 @@ public class GuestEntity {
 
     @ManyToOne(cascade = CascadeType.ALL, targetEntity = InvitationEntity.class)
     @JoinColumn(name = "invite_id", nullable = false)
+    @JsonBackReference
     private InvitationEntity invitationEntity;
 
     @Column(name = "additional_guest")
@@ -91,12 +94,12 @@ public class GuestEntity {
         this.lastName = lastName.trim();
     }
 
-    public FoodEntity getFoodEntity() {
-        return foodEntity;
+    public FoodEntity getFood() {
+        return food;
     }
 
-    public void setFoodEntity(FoodEntity foodEntity) {
-        this.foodEntity = foodEntity;
+    public void setFood(FoodEntity food) {
+        this.food = food;
     }
 
     public Boolean getDietaryConcerns() {

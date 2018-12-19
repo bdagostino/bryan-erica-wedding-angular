@@ -29,8 +29,7 @@ public class AdminInvitationController {
     }
 
     @GetMapping(value = "/invitations", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<InvitationEntity>> retrieveAllInvitations() {
-        logger.info("Retrieving All Invitations");
+    public ResponseEntity<List<InvitationEntity>> retrieveInvitations() {
         final List<InvitationEntity> invitationEntityList = this.invitationRepository.findAll();
         if (!invitationEntityList.isEmpty()) {
             return ResponseEntity.ok(invitationEntityList);
